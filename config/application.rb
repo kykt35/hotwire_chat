@@ -19,6 +19,7 @@ module HotwireChat
     config.generators do |g|
       g.assets false
       g.helper false
+      g.jbuilder false
       g.test_framework :rspec,
                        fixtures: false,
                        view_specs: false,
