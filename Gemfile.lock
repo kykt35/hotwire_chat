@@ -65,6 +65,8 @@ GEM
       activerecord (= 7.1.3.2)
       activesupport (= 7.1.3.2)
       marcel (~> 1.0)
+    activestorage-memory (0.2.0)
+      rails (~> 7.0, >= 7.0.0)
     activesupport (7.1.3.2)
       base64
       bigdecimal
@@ -94,6 +96,9 @@ GEM
       xpath (~> 3.2)
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
+    crack (1.0.0)
+      bigdecimal
+      rexml
     crass (1.0.6)
     date (3.3.4)
     debug (1.9.2)
@@ -102,8 +107,16 @@ GEM
     diff-lcs (1.5.1)
     drb (2.2.1)
     erubi (1.12.0)
+    factory_bot (6.4.6)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.4.3)
+      factory_bot (~> 6.4)
+      railties (>= 5.0.0)
+    faker (3.3.1)
+      i18n (>= 1.8.11, < 2)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    hashdiff (1.1.0)
     i18n (1.14.4)
       concurrent-ruby (~> 1.0)
     importmap-rails (2.0.1)
@@ -222,6 +235,8 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    shoulda-matchers (6.2.0)
+      activesupport (>= 5.2.0)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -251,6 +266,10 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
+    webmock (3.23.0)
+      addressable (>= 2.8.0)
+      crack (>= 0.3.2)
+      hashdiff (>= 0.4.0, < 2.0.0)
     webrick (1.8.1)
     websocket (1.2.10)
     websocket-driver (0.7.6)
@@ -265,9 +284,12 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  activestorage-memory (~> 0.2.0)
   bootsnap
   capybara
   debug
+  factory_bot_rails
+  faker
   importmap-rails
   jbuilder
   puma (>= 5.0)
@@ -275,6 +297,7 @@ DEPENDENCIES
   redis (>= 4.0.1)
   rspec-rails
   selenium-webdriver
+  shoulda-matchers
   sprockets-rails
   sqlite3 (~> 1.4)
   stimulus-rails
@@ -282,6 +305,7 @@ DEPENDENCIES
   turbo-rails
   tzinfo-data
   web-console
+  webmock
 
 RUBY VERSION
    ruby 3.2.2p53
