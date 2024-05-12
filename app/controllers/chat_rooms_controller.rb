@@ -8,6 +8,7 @@ class ChatRoomsController < ApplicationController
 
   # GET /chat_rooms/1 or /chat_rooms/1.json
   def show
+    @chat_messages = @chat_room.chat_messages
   end
 
   # GET /chat_rooms/new
@@ -65,6 +66,6 @@ class ChatRoomsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def chat_room_params
-      params.fetch(:chat_room, {})
+      params.require(:chat_room).permit(:name)
     end
 end

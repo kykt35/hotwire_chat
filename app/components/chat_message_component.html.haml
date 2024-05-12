@@ -1,0 +1,10 @@
+%div.chat-message.flex.mt-4{class: "#{@chat_message.role == 'user' ? 'flex-row' : 'flex-row-reverse'} first:mt-0"}
+  .mx-1
+    %div.size-16.bg-gray-100.border.rounded-full.flex
+      .m-auto
+        = @chat_message.role
+
+  .mx-1.w-full
+    %div.bg-gray-100.border.rounded-lg.p-2.min-h-16
+      %div
+        = @chat_message.content
