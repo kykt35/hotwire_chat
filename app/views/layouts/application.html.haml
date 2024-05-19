@@ -10,6 +10,9 @@
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
   %body
-    = render(HeaderComponent.new)
-    %main.container.mx-auto.p-5.flex
-      = yield
+    %main.flex.flex-col.h-screen
+      = render(HeaderComponent.new)
+      .container.mx-auto.p-5.h-full
+        #flash
+          = render FlashComponent.new(flash: flash)
+        = yield
