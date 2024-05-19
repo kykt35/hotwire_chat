@@ -1,6 +1,2 @@
 = turbo_stream.update "flash" do
   = render FlashComponent.new(flash: flash)
-
-- @chat_messages.each do |chat_message|
-  = turbo_stream.append 'chat-messages' do
-    = render ChatMessageComponent.new(chat_message: chat_message)

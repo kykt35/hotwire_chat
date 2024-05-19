@@ -2,15 +2,24 @@ class ChatRooms::ChatMessagesController < ApplicationController
   before_action :_set_chat_room
 
   def create
-    @chat_messages = []
-    @chat_messages << @chat_room.chat_messages.create!(chat_message_params.merge(role: 'user'))
-    @chat_messages << @chat_room.chat_messages.create!(role: 'assistant', content: 'Hello, World!')
+    user_message = @chat_room.chat_messages.create!(chat_message_params.merge(role: 'user'))
+    user_message.broadcast_append_to(
+      @chat_room,
+      target: 'chat-messages',
+      html: ChatMessageComponent.new(chat_message: user_message).render_in(view_context)
+    )
 
-    # flash.now.notice = 'Chat message created'
-    render :create, locals: { chat_messages: @chat_messages }
+    asistant_message = @chat_room.chat_messages.create!(role: 'assistant', content: 'Hello, World!')
+
+    sleep 1 # Simulate a delay in the assistant's response
+
+    asistant_message.broadcast_append_to(
+      @chat_room,
+      target: 'chat-messages',
+      html: ChatMessageComponent.new(chat_message: asistant_message).render_in(view_context)
+    )
   rescue ActiveRecord::RecordInvalid => e
     flash.now.alert = e.message
-    # render 'chat_rooms/show'
   end
 
   private
