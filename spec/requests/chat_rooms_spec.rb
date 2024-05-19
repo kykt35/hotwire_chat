@@ -16,13 +16,8 @@ RSpec.describe "/chat_rooms", type: :request do
   # This should return the minimal set of attributes required to create a valid
   # ChatRoom. As you add validations to ChatRoom, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) do
-    skip("Add a hash of attributes valid for your model")
-  end
-
-  let(:invalid_attributes) do
-    skip("Add a hash of attributes invalid for your model")
-  end
+  let(:valid_attributes) { { name: "MyString" } }
+  let(:invalid_attributes) { { name: "" } }
 
   describe "GET /index" do
     it "renders a successful response" do
@@ -85,15 +80,13 @@ RSpec.describe "/chat_rooms", type: :request do
 
   describe "PATCH /update" do
     context "with valid parameters" do
-      let(:new_attributes) do
-        skip("Add a hash of attributes valid for your model")
-      end
+      let(:new_attributes) { { name: "new room" } }
 
       it "updates the requested chat_room" do
         chat_room = ChatRoom.create! valid_attributes
         patch chat_room_url(chat_room), params: { chat_room: new_attributes }
         chat_room.reload
-        skip("Add assertions for updated state")
+        expect(chat_room.name).to eq("new room")
       end
 
       it "redirects to the chat_room" do

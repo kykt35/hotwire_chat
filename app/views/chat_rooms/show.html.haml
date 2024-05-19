@@ -1,21 +1,26 @@
-.w-full.flex
-  .max-w-lg.w-full.m-auto
-    = link_to "Back to chat_rooms", chat_rooms_path, class: "btn primary"
+.w-full.h-full
+  .max-w-lg.w-full.mx-auto.h-full.flex.flex-col
+    %div
+      = link_to "Back to chat_rooms", chat_rooms_path, class: "btn primary"
 
     - if notice.present?
       %p#notice.py-2.px-3.bg-green-50.mb-5.text-green-500.font-medium.rounded-lg.inline-block= notice
 
     %div.flex.mt-4.justify-between.items-center
       = link_to "Edit", edit_chat_room_path(@chat_room), class: "btn primary"
-      = button_to "Destroy", chat_room_path(@chat_room), method: :delete, class: "btn secondary"
+      = button_to "Destroy", chat_room_path(@chat_room), method: :delete, class: "btn secondary", data: { turbo_confirm: "ChatRoomを削除しますか？" }
 
     .mt-6.w-full
       = render ChatRoomComponent.new chat_room: @chat_room
 
-    - if @chat_messages.present?
-      %div
-        - @chat_messages.each do |message|
-          = render ChatMessageComponent.new(chat_message: message)
-    - else
-      %div
-        No messages yet
+    #chat-area.w-full.flex.flex-col.justify-between{class: "h-3/5"}
+      #chat-messages.w-full.overflow-scroll.me-4{data: {controller: "scroll"}}
+        - if @chat_messages.present?
+          - @chat_messages.each do |message|
+            = render ChatMessageComponent.new(chat_message: message)
+
+      .w-full
+        = form_with model: ChatMessage.new, url: chat_room_chat_messages_path(@chat_room), local: true do |form|
+          .flex.flex-row
+            = form.text_area :content, class: "w-full border p-2 rounded-lg mr-2", placeholder: "Type your message here"
+            = form.submit "Send", class: "btn primary"
